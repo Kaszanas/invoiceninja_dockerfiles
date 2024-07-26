@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  server:
+  invoiceninja-server:
     image: nginx
     restart: always
     env_file: env
@@ -15,14 +15,14 @@ services:
     # Run webserver nginx on port 80
     # Feel free to modify depending what port is already occupied
     ports:
-      - "80:80"
+      - "8181:80"
       #- "443:443"
     networks:
       - invoiceninja
-    extra_hosts:
-      - "in5.localhost:192.168.0.124 " #host and ip
+    # extra_hosts:
+    #   - "in5.localhost:192.168.50.124 " #host and ip
 
-  app:
+  invoiceninja-app:
     image: invoiceninja/invoiceninja:5
     env_file: env
     restart: always
@@ -37,10 +37,10 @@ services:
       - db
     networks:
       - invoiceninja
-    extra_hosts:
-      - "in5.localhost:192.168.0.124 " #host and ip
+    # extra_hosts:
+    #   - "in5.localhost:192.168.0.124 " #host and ip
 
-  db:
+  invoiceninja-db:
     image: mysql:8
 #    When running on ARM64 use MariaDB instead of MySQL
 #    image: mariadb:10.4
@@ -59,8 +59,8 @@ services:
       #- ./config/mysql/backup-script:/etc/cron.monthly/monthly:ro
     networks:
       - invoiceninja
-    extra_hosts:
-      - "in5.localhost:192.168.0.124 " #host and ip
+    # extra_hosts:
+    #   - "in5.localhost:192.168.0.124 " #host and ip
 
   # THIS IS ONLY A VALID CONFIGURATION FOR IN 4. DO NOT USE FOR IN 5.
   # cron:
